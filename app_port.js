@@ -3,7 +3,8 @@ const bodyParser = require('body-parser');
 const app = express();
 const net = require('net');
 
-const HOST = 'localhost';
+const PYTHON_HOST = '192.168.29.104';
+const EXPRESS_HOST = '192.168.29.104';
 const EXPRESS_PORT = 4000; // Express.js server port
 const PYTHON_PORT = 5000;  // Python server port
 
@@ -37,15 +38,15 @@ app.post('/shutdown', (req, res) => {
   });
 });
 
-let server = app.listen(EXPRESS_PORT, HOST, () => {
-  console.log(`Express server is running on http://${HOST}:${EXPRESS_PORT}`);
+let server = app.listen(EXPRESS_PORT, EXPRESS_HOST, () => {
+  console.log(`Express server is running on http://${EXPRESS_HOST}:${EXPRESS_PORT}`);
 });
 
 async function sendToPython(message) {
   return new Promise((resolve, reject) => {
     let client = new net.Socket();
 
-    client.connect(PYTHON_PORT, HOST, () => { // Connect to the Python server on PYTHON_PORT
+    client.connect(PYTHON_PORT, PYTHON_HOST, () => { // Connect to the Python server on PYTHON_PORT
       console.log('Connected to Python server');
 
       // Send data to Python
